@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://c0d3-socket.herokuapp.com/",
+    origin: "https://localhost:3001/",
     methods: ["GET", "POST"]
   }
 });
