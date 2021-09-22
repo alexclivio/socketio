@@ -1,11 +1,10 @@
 const express = require("express");
 const { Server } = require("socket.io");
 const http = require("http");
-const path = require("path");
 const app = express();
-// const cors = require('cors')
+const cors = require('cors')
 
-// app.use(cors())
+app.use(cors())
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
@@ -13,7 +12,12 @@ app.get("/", (req, res) => {
 });
 
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: "https://c0d3-socket.herokuapp.com/",
+    methods: ["GET", "POST"]
+  }
+});
 
 io.on("connection", (socket) => {
   socket.on("join_room", (data) => {
