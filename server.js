@@ -2,9 +2,7 @@ const express = require("express");
 const { Server } = require("socket.io");
 const http = require("http");
 const app = express();
-const cors = require('cors')
 
-app.use(cors())
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
@@ -12,12 +10,7 @@ app.get("/", (req, res) => {
 });
 
 const server = http.createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: "https://localhost:3001/",
-    methods: ["GET", "POST"]
-  }
-});
+const io = new Server(server);
 
 io.on("connection", (socket) => {
   socket.on("join_room", (data) => {
